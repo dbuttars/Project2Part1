@@ -14,7 +14,7 @@ struct task_struct *task; //To use the for_each_process macro
 int pid_array [1000];
 int counter;
 
-asmlinkage long sys_my_syscall(int i, void* to)
+asmlinkage long sys_my_syscall(int i, unsigned long *to)
 {
 //	printk(KERN_INFO "This is the new system call Daniel Grant Burningham Buttars implemented.\n");
 //	for_each_process(task) {
@@ -26,7 +26,7 @@ asmlinkage long sys_my_syscall(int i, void* to)
 		counter++;
 	}	
 
-	copy_to_user(to, pid_array, sizeof(int)*1000);	
+	copy_to_user(to, pid_array, (sizeof(int)*1000));	
 
 	return 0;
 }
