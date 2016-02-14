@@ -8,16 +8,21 @@ int main()
 //	printf("%d\n", syscall(__NR_my_syscall));
 //	printf("%5s %-5s\t%8s %-10s\n", "1", "?", "00:00:31", "init");
 	
-	int array [1000];
-	int i;		
-	for (i = 0; i < 1000; i++) {
-		array[i] = 0;
-	}	
-	printf("%d\n",	syscall(__NR_my_syscall, array));
+	
+//	for (i = 0; i < 1000; i++) {
+//		array[i] = 0;
+//	}	
 	
 //	for (i = 0; i < 1000; i++) {
 //		printf("PID: %d\n", array[i]);
 //	}	
+	char buff[4096];
+	syscall(__NR_my_syscall, sizeof(buff), buff);
+	
+	int i;
+	for (i = 0; i < 256; i = i + 4) {
+		printf("PID: %d\n", buff[i]);
+	}
 
 	return 0;
 }
