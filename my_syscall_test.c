@@ -16,12 +16,12 @@ int main()
 //	for (i = 0; i < 1000; i++) {
 //		printf("PID: %d\n", array[i]);
 //	}	
-	char buff[4096];
+	int buff[1024];
 	syscall(__NR_my_syscall, sizeof(buff), buff);
 	
 	int i;
-	for (i = 0; i < 256; i = i + 4) {
-		printf("PID: %d\n", buff[i]);
+	for (i = 0; i < 256; i++){
+		printf("PID: %d\n", buff[i]); 
 	}
 
 	return 0;

@@ -8,21 +8,23 @@
 
 struct task_struct *task; //To use the for_each_process macro
 
-asmlinkage long sys_my_syscall(int cap, char *to)
+asmlinkage long sys_my_syscall(int cap, int *to)
 {
 //	printk(KERN_INFO "This is the new system call Daniel Grant Burningham Buttars implemented.\n");
-	char buff[4096];
+	int buff[1024];
 	int len = 0;
 	for_each_process(task) {
 		printk("Task %s (pid = %d)\n", task->comm, task_pid_nr(task));
 		buff[len] = task_pid_nr(task);
 		printk("Task saved in array as: %u\n", buff[len]); 
-		len = len + 4;
+		len++;
 	}	
 
+	if (len > cap) len = cap;
 	printk("Len is %d\n", len);
-	
-	return copy_to_user(to, buff, len); 
+	int size;
+	size = len * 4;	
+	return copy_to_user(to, buff, size); 
 }
 
 /*---End of my_syscall.c---*/
