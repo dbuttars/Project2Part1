@@ -22,6 +22,7 @@ int main()
 	int i;
 	for (i = 0; i < 256; i++){
 		printf("PID: %d\n", buff[i]); 
+		if (buff[(i+1)] == 0) i = 256;
 	}
 
 	return 0;
