@@ -1,0 +1,16 @@
+#include<linux/syscalls.h> //We're a syscall
+#include<linux/sched.h> //Needed for the for_each_process() macro
+#include<linux/jiffies.h> //Needed to manage the time
+#include<asm/uaccess.h> //Needed to use copy_to_user
+
+struct task_struct *task; //To use the for_each_process macro
+
+asmlinkage long sys_my_syscall_num(void)
+{
+	int counter;
+	for_each_process(task) {	 	
+		counter++;				
+	}		
+	printk("NUMBER of tasks: %d\n",counter);		
+	return counter;
+}
