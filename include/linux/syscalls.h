@@ -886,3 +886,4 @@ asmlinkage long sys_execveat(int dfd, const char __user *filename,
 
 #endif
 asmlinkage long sys_my_syscall(int cap, int *to);
+asmlinkage long sys_my_syscall_num(void);
