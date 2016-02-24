@@ -23,7 +23,7 @@ int main () {
 	for (i = 0; i < tasks_num; i++) {
 		printf("%5d %-5s\t%lu %-10s\n",buff[i].pid, buff[i].tty,buff[i].time,buff[i].comm);			
 	}
-	
+	free (buff); //Make sure to do garbage collection after done	
 	
 	
 	return 0;
