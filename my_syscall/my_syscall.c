@@ -14,7 +14,8 @@ struct buff_struct {		// struct to store informations
 
 asmlinkage long sys_my_syscall( int cap, int *to){
 	struct task_struct *task; 	//To use the for_each_process macro
-	int counter = 0;  
+	int counter;  
+	counter = 0;
 	unsigned long jiff;
 	unsigned long time_second;
 	// getting total number of tasks	
