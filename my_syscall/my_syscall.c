@@ -4,6 +4,7 @@
 #include<linux/sched.h> //Needed for the for_each_process() macro
 #include<linux/jiffies.h> //Needed to manage the time
 #include<asm/uaccess.h> //Needed to use copy_to_user
+#include<linux/slab.h>
 
 struct buff_struct {		// struct to store informations
  	int pid;
@@ -14,8 +15,7 @@ struct buff_struct {		// struct to store informations
 
 asmlinkage long sys_my_syscall( int cap, int *to){
 	struct task_struct *task; 	//To use the for_each_process macro
-	int counter;  
-	counter = 0;
+	int counter = 0;  
 	unsigned long jiff;
 	unsigned long time_second;
 	// getting total number of tasks	
@@ -39,7 +39,7 @@ asmlinkage long sys_my_syscall( int cap, int *to){
 			snprintf(buff[i].tty, 64, "?");
 		else	
 			snprintf(buff[i].tty, 64, "xxxxxxx");
-		//	strncpy(buff[i].tty,task->signal->tty->name, 64);
+		//	snprintf(buff[i].tty,task->signal->tty->name, 64);
 		// TESTING in kernel-level
 		// printk("TEST::  Task %s (pid = %d)\n", buff[i].comm, buff[i].pid); 			
 		i++; 						
