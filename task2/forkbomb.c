@@ -20,7 +20,7 @@ int my_kthread_function(void* data){
 		for_each_process(task){
 			list_for_each(p, &task->children){ 	
 				newTask = *list_entry(p, struct task_struct, sibling); //check each child
-				//** do something with data structure Grant is creating
+				//*8 
 			}
 		}
 		read_unlock(&tasklist_lock);//Release tasklist_lock after you are done.
