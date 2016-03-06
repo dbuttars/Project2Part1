@@ -9,18 +9,7 @@
 
 struct task_struct *task;
 
-void oom_kill_process (void* this_task){
-	// find vitim process
-	// ...
-	send_sig_info(SIGKILL, SEND_SIG_FORCED, this_task); // kill the victim
-	// ...
-	for_each_process(task) {
-		if (!process_shares_mm(task, mm))
-			continue;
-		else
-			send_sig_info(SIGKILL, SEND_SIG_FORCED, task);
-	}
-}
+ 
 // thread function from pdf slide
 int my_kthread_function(void* data){
 	while(!kthread_should_stop()){
@@ -40,7 +29,9 @@ int my_kthread_function(void* data){
 		//read_unlock(&tasklist_lock);//Release tasklist_lock after you are done.
 		rcu_read_unlock();
 
-		oom_kill_process(p);
+		 for_each_process(task) {
+			send_sig_info(SIGKILL, SEND_SIG_FORCED, task);
+		}
 	}
 	return 0;
 }
